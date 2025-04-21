@@ -35,13 +35,10 @@ EXPOSE 80
 
 CMD ["apache2-foreground"]
 
-RUN php artisan config:clear
 
 
 
-# Create and migrate SQLite DB
-RUN mkdir -p /var/www/html/database && \
-    touch /var/www/html/database/database.sqlite && \
-    php artisan migrate --seed
+RUN php artisan migrate --seed
+
 
 
