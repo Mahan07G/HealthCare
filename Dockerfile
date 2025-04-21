@@ -35,6 +35,7 @@ EXPOSE 80
 
 CMD ["apache2-foreground"]
 
+RUN php artisan config:clear
 
 
 
