@@ -36,11 +36,3 @@ RUN mkdir -p /var/www/html/database && \
     chown www-data:www-data /var/www/html/database/database.sqlite && \
     chmod 775 /var/www/html/database/database.sqlite
 
-# Expose port 80
-EXPOSE 80
-
-# Command to start Apache server
-CMD ["apache2-foreground"]
-
-# Run migrations (migrate after app starts, consider moving to entrypoint.sh)
-RUN php artisan migrate --seed
