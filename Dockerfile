@@ -11,6 +11,9 @@ RUN a2enmod rewrite
 # Set working directory
 WORKDIR /var/www/html
 
+# Copy Apache config (this is the fix!)
+COPY apache/000-default.conf /etc/apache2/sites-available/000-default.conf
+
 # Copy Laravel app
 COPY . .
 
@@ -19,15 +22,21 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
+    && chmod -R 755 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Laravel storage + cache
+# Laravel config & route cache
 RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
 
 # Expose port 80
 EXPOSE 80
 
 CMD ["apache2-foreground"]
+
+# Create SQLite file for Laravel
+RUN mkdir -p /var/www/html/database && \
+    touch /var/www/html/database/database.sqlite
+
+RUN php artisan migrate --seed
