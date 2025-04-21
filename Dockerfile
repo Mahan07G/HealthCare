@@ -39,5 +39,8 @@ CMD ["apache2-foreground"]
 
 
 # Create and migrate SQLite DB
-RUN php artisan migrate --seed
+RUN mkdir -p /var/www/html/database && \
+    touch /var/www/html/database/database.sqlite && \
+    php artisan migrate --seed
+
 
