@@ -36,7 +36,7 @@ EXPOSE 80
 CMD ["apache2-foreground"]
 
 
-COPY database/database.sqlite /var/www/html/database/database.sqlite
+
 
 # Create and migrate SQLite DB
 RUN php artisan migrate --seed
