@@ -40,4 +40,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+use Illuminate\Support\Facades\Artisan;
+
+Route::get('/run-migrations', function () {
+    Artisan::call('migrate --force');
+    Artisan::call('db:seed');
+    return '✅ Migrations and seeders have been run.';
+});
+
 require __DIR__ . '/auth.php';
