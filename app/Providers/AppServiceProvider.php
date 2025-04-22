@@ -5,7 +5,6 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\URL;
 
-
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -19,13 +18,10 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-
-
-
-    public function boot()
+    public function boot(): void
     {
-        // Force HTTPS in production
-        if (env('APP_ENV') === 'production' || env('FORCE_HTTPS') === 'true') {
+        // ✅ Force HTTPS in production based on Laravel config (not raw env)
+        if (config('app.env') === 'production' || config('app.force_https')) {
             URL::forceScheme('https');
         }
     }
