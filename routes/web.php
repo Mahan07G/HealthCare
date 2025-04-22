@@ -49,4 +49,20 @@ Route::get('/run-migrations', function () {
     return '✅ Migrations and seeders have been run.';
 });
 
+Route::get('/seed-doctors', function () {
+    Artisan::call('db:seed', [
+        '--class' => 'DoctorSeeder',
+        '--force' => true,
+    ]);
+    return '✅ DoctorSeeder ran';
+});
+Route::get('/seed-services', function () {
+    Artisan::call('db:seed', [
+        '--class' => 'ServiceSeeder',
+        '--force' => true,
+    ]);
+    return '✅ ServiceSeeder ran';
+});
+
+
 require __DIR__ . '/auth.php';
