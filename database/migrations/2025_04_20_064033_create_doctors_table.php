@@ -14,7 +14,7 @@ class CreateDoctorsTable extends Migration
             $table->string('position');
             $table->text('description');
             $table->string('image'); // Path to the doctor's image
-            $table->json('social_links')->nullable(); // Social media links
+            $table->text('social_links')->nullable(); // Social media links
             $table->timestamps();
         });
     }
